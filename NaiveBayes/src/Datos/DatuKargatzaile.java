@@ -35,6 +35,9 @@ public class DatuKargatzaile {
 	 * @param pKlasePos Klasearen indizea
 	 */
 	public void setKlasearenPosizioa(int pKlasePos){
+		if(pKlasePos < 0){
+			pKlasePos = this.instantziak.numAttributes()-1;
+		}
 		this.instantziak.setClassIndex(pKlasePos);
 	}
 	
