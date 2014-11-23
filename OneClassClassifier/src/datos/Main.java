@@ -3,6 +3,7 @@ package datos;
 import weka.classifiers.functions.LibSVM;
 import weka.core.Instances;
 import weka.core.SelectedTag;
+import weka.filters.Filter;
 
 public class Main {
 
@@ -14,8 +15,8 @@ public class Main {
 		SelectedTag selectedTag = new SelectedTag(LibSVM.SVMTYPE_ONE_CLASS_SVM, LibSVM.TAGS_SVMTYPE);
 		libSVM.setSVMType(selectedTag);
 		try {
-			libSVM.buildClassifier(dk.getInstantziak());
 			Instances instantziak = dk.getInstantziak();
+			libSVM.buildClassifier(instantziak);
 			for(int i=0;i<instantziak.numInstances();i++){
 				System.out.println(libSVM.classifyInstance(instantziak.instance(i)));
 			}
