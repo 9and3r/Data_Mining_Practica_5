@@ -23,7 +23,7 @@ public class Main {
 			remove.setModifyHeader(true);
 			remove.setNominalIndicesArr(removeValues);
 			remove.setInputFormat(instantziak);
-			Filter.useFilter(instantziak, remove);
+			instantziak = Filter.useFilter(instantziak, remove);
 			System.out.println(instantziak.attribute(instantziak.classIndex()).numValues());
 			libSVM.buildClassifier(instantziak);
 			for(int i=0;i<instantziak.numInstances();i++){
