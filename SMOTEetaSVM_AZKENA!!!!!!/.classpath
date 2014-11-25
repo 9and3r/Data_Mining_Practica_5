@@ -4,5 +4,8 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
 	<classpathentry kind="lib" path="weka.jar"/>
 	<classpathentry kind="lib" path="KlaseKontatzaile.jar"/>
+	<classpathentry kind="lib" path="/OneClassClassifier/LibSVM.jar"/>
+	<classpathentry kind="lib" path="/OneClassClassifier/weka.jar"/>
+	<classpathentry kind="lib" path="/OneClassClassifier/lib/libsvm.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
