@@ -102,7 +102,7 @@ public class BayesNetProba {
 	
 	public void erabakiakHartu(Instances erabakitzeko){
 		try {
-			PrintWriter writer = new PrintWriter("emaitzaBayesNet.txt", "UTF-8");
+			PrintWriter writer = new PrintWriter("emaitzaBayesNet", "UTF-8");
 			for(int i=0;i<erabakitzeko.numInstances();i++){
 				Instance instantzia=erabakitzeko.instance(i);
 				double emaitza=bayesNet.classifyInstance(instantzia);

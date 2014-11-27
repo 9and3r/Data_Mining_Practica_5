@@ -1,10 +1,12 @@
 package datuak;
 
+import weka.classifiers.Classifier;
+import weka.classifiers.Evaluation;
 import weka.core.Instances;
 
 public class ScanParamsAlgorithm {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		System.out.println(args.length);
 		if(args.length<4){
 			System.out.println("Bi path sartu behar dira. Lehenengoan entrenatzeko fitxategia, bigarrena klasifikatu behar den fitxategia, azkena klasearen posizioa. Azkena bada -1 sartu");
@@ -30,6 +32,13 @@ public class ScanParamsAlgorithm {
 			FitxategiKargatzaile f2=new FitxategiKargatzaile(args[2], Integer.valueOf(args[1]));
 			altuena.erabakiakHartu(f2.getInstantziak()); 
 			altuena.sailkatzaileaGorde(args[3]);
+			
+			
+			//Importatu sortutako modeloa eta proba egin (probisionala)
+			Classifier cls = (Classifier) weka.core.SerializationHelper.read(args[3]);
+			Evaluation evaluator = new Evaluation(instantziak);
+			evaluator.evaluateModel(cls, fdev.getInstantziak());
+			System.out.println(evaluator.weightedFMeasure());
 		}
 	}
 	
