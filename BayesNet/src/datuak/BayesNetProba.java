@@ -1,5 +1,6 @@
 package datuak;
 
+
 import java.io.PrintWriter;
 import java.util.Random;
 
@@ -23,8 +24,8 @@ public class BayesNetProba {
 	private Instances instantziak;
 	
 
-	public BayesNetProba(boolean pMarklov, int pParents,Instances data){
-		this.instantziak=data;
+	public BayesNetProba(boolean pMarklov, int pParents,Instances train, Instances dev){
+		this.instantziak=train;
 		this.bayesNet=new BayesNet();
 		this.searchAlgo=new HillClimber();
 		this.marklov=pMarklov;
@@ -35,8 +36,8 @@ public class BayesNetProba {
 		this.bayesNet.setEstimator(new SimpleEstimator());
 		try {
 			bayesNet.buildClassifier(instantziak);
-			evaluator = new Evaluation(data);
-			evaluator.crossValidateModel(bayesNet, data, 5, new Random(1));
+			evaluator = new Evaluation(train);
+			evaluator.evaluateModel(bayesNet, dev);
 			fmeasure=evaluator.weightedFMeasure();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -110,6 +111,15 @@ public class BayesNetProba {
 			}
 			writer.close();
 		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void sailkatzaileaGorde(String fitxIzena){
+		try {
+			weka.core.SerializationHelper.write(fitxIzena, bayesNet);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

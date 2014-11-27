@@ -5,18 +5,21 @@ import weka.core.Instances;
 public class ScanParamsAlgorithm {
 
 	public static void main(String[] args) {
-		if(args.length<3){
-			System.out.println("Bi path sartu behar da. Lehenengoan entrenatzeko fitxategia, bigarrena klasifikatu behar den fitxategia, azkena klasearen posizioa. Azkena bada -1 sartu");
+		System.out.println(args.length);
+		if(args.length<4){
+			System.out.println("Bi path sartu behar dira. Lehenengoan entrenatzeko fitxategia, bigarrena klasifikatu behar den fitxategia, azkena klasearen posizioa. Azkena bada -1 sartu");
 		}else{
-			FitxategiKargatzaile f=new FitxategiKargatzaile(args[0], Integer.parseInt(args[2]));
+			FitxategiKargatzaile f=new FitxategiKargatzaile(args[0], Integer.parseInt(args[1]));
+			FitxategiKargatzaile fdev=new FitxategiKargatzaile(args[2], Integer.parseInt(args[1]));
 			Instances instantziak = f.getInstantziak();
+			Instances dev = fdev.getInstantziak();
 			BayesNetProba oraingoa=null;
 			BayesNetProba altuena=null;
 			for(int i=0;i<2;i++){
 				if(i==0){
-					altuena=konprobatuAtributuGuztiak(instantziak, true);
+					altuena=konprobatuAtributuGuztiak(instantziak, true, dev);
 				}else{
-					oraingoa=konprobatuAtributuGuztiak(instantziak, false);
+					oraingoa=konprobatuAtributuGuztiak(instantziak, false, dev);
 				}
 			}	
 			if(oraingoa.getFmeasure()>altuena.getFmeasure()){
@@ -24,20 +27,21 @@ public class ScanParamsAlgorithm {
 			}
 			altuena.imprimatuEzZintzoa();
 			altuena.imprimatuZintzoa();
-			FitxategiKargatzaile f2=new FitxategiKargatzaile(args[1], Integer.valueOf(args[2]));
-			altuena.erabakiakHartu(f2.getInstantziak());
+			FitxategiKargatzaile f2=new FitxategiKargatzaile(args[2], Integer.valueOf(args[1]));
+			altuena.erabakiakHartu(f2.getInstantziak()); 
+			altuena.sailkatzaileaGorde(args[3]);
 		}
 	}
 	
-	private static BayesNetProba konprobatuAtributuGuztiak(Instances instantziak,boolean pMark){
+	private static BayesNetProba konprobatuAtributuGuztiak(Instances instantziak,boolean pMark, Instances dev){
 		BayesNetProba oraingoa;
 		BayesNetProba altuena;
 		boolean irten=false;
 		int i=1;
-		altuena=new BayesNetProba(pMark, i, instantziak);
+		altuena=new BayesNetProba(pMark, i, instantziak, dev);
 		while(!irten && i<instantziak.numAttributes()){
 			i++;
-			oraingoa=new BayesNetProba(pMark, i, instantziak);
+			oraingoa=new BayesNetProba(pMark, i, instantziak,dev);
 			if(oraingoa.getFmeasure()>altuena.getFmeasure()){
 				if(oraingoa.getFmeasure()-altuena.getFmeasure()<0.001){
 					irten=true;
