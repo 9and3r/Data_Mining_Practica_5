@@ -1,8 +1,11 @@
 package datos;
 
+import java.io.File;
+
 import weka.classifiers.functions.LibSVM;
 import weka.core.Instances;
 import weka.core.SelectedTag;
+import weka.core.converters.ArffSaver;
 import weka.filters.Filter;
 import weka.filters.unsupervised.instance.RemoveWithValues;
 
@@ -24,10 +27,12 @@ public class Main {
 			remove.setNominalIndicesArr(removeValues);
 			remove.setInputFormat(instantziak);
 			instantziak = Filter.useFilter(instantziak, remove);
-			System.out.println(instantziak.attribute(instantziak.classIndex()).numValues());
+			instantziak.setClassIndex(instantziak.numAttributes()-1);
 			libSVM.buildClassifier(instantziak);
+			libSVM.setProbabilityEstimates(true);
+			libSVM.
 			for(int i=0;i<instantziak.numInstances();i++){
-				System.out.println(libSVM.classifyInstance(instantziak.instance(i)));
+				System.out.println(libSVM.classifyInstance(instantziak.get(i)));
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
