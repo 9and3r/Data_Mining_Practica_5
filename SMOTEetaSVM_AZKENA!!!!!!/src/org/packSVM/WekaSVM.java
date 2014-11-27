@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Random;
 
+import classcounter.Classcounter;
 import weka.classifiers.meta.GridSearch;
 import weka.classifiers.meta.CVParameterSelection;
 import weka.classifiers.rules.OneR;
@@ -57,7 +58,18 @@ public class WekaSVM {
 		// 1.6. Specify which attribute will be used as the class
 		data.setClassIndex(classindex);
 		
-
+		//1.7 Classcounter para calcular indice clase positiva necesario para fmeasurede la clase positiva
+		Classcounter counter = new Classcounter();
+		int[] indizeak = counter.contarClases(data, classindex);
+		int indizea =0; 
+		int aux=0;
+		for (int i=0; i<indizeak.length;i++){
+			if (aux>=indizeak[i]){
+				indizea = i;
+				aux = indizeak[i];
+				
+			}
+		}
 		double fmeasureaux = 0;
 		double fmeasure = 0;
 		// parametroak
@@ -119,8 +131,8 @@ public class WekaSVM {
 						System.out
 								.println("Elementu honek errorea ematen du: ");
 					}
-
-					fmeasureaux = evaluator.weightedFMeasure(); // fMeasure
+					
+					fmeasureaux = evaluator.fMeasure(indizea); // fMeasure
 																// kalkulatzen
 																// du
 					if (fmeasureaux > fmeasure) {
