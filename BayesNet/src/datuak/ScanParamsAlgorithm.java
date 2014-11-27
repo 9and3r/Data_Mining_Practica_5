@@ -1,5 +1,5 @@
 package datuak;
-
+import classcounter.*;
 import weka.classifiers.Classifier;
 import weka.classifiers.Evaluation;
 import weka.core.Instances;
@@ -16,12 +16,23 @@ public class ScanParamsAlgorithm {
 			Instances instantziak = f.getInstantziak();
 			Instances dev = fdev.getInstantziak();
 			BayesNetProba oraingoa=null;
-			BayesNetProba altuena=null;
+			BayesNetProba altuena=null;			
+			//klase minoritarioa lortzeko kodea, klase honen fmeasure-a optimizatu nahi dugu
+
+			Classcounter classcounter = new Classcounter();
+			int[] emaitza = classcounter.contarClases(instantziak,	Integer.parseInt(args[1]) );
+			int klaseMinoritarioa=0;
+			for (int i=1; i<emaitza.length; i++){
+				if(emaitza[i]<emaitza[klaseMinoritarioa])
+					klaseMinoritarioa=i;
+			}
+			////////////////////////////////////
+			
 			for(int i=0;i<2;i++){
 				if(i==0){
-					altuena=konprobatuAtributuGuztiak(instantziak, true, dev);
+					altuena=konprobatuAtributuGuztiak(instantziak, true, dev, klaseMinoritarioa);
 				}else{
-					oraingoa=konprobatuAtributuGuztiak(instantziak, false, dev);
+					oraingoa=konprobatuAtributuGuztiak(instantziak, false, dev,klaseMinoritarioa);
 				}
 			}	
 			if(oraingoa.getFmeasure()>altuena.getFmeasure()){
@@ -38,19 +49,19 @@ public class ScanParamsAlgorithm {
 			Classifier cls = (Classifier) weka.core.SerializationHelper.read(args[3]);
 			Evaluation evaluator = new Evaluation(instantziak);
 			evaluator.evaluateModel(cls, fdev.getInstantziak());
-			System.out.println(evaluator.weightedFMeasure());
+			System.out.println(evaluator.fMeasure(klaseMinoritarioa));
 		}
 	}
 	
-	private static BayesNetProba konprobatuAtributuGuztiak(Instances instantziak,boolean pMark, Instances dev){
+	private static BayesNetProba konprobatuAtributuGuztiak(Instances instantziak,boolean pMark, Instances dev, int klaseMin){
 		BayesNetProba oraingoa;
 		BayesNetProba altuena;
 		boolean irten=false;
 		int i=1;
-		altuena=new BayesNetProba(pMark, i, instantziak, dev);
+		altuena=new BayesNetProba(pMark, i, instantziak, dev, klaseMin);
 		while(!irten && i<instantziak.numAttributes()){
 			i++;
-			oraingoa=new BayesNetProba(pMark, i, instantziak,dev);
+			oraingoa=new BayesNetProba(pMark, i, instantziak,dev,klaseMin);
 			if(oraingoa.getFmeasure()>altuena.getFmeasure()){
 				if(oraingoa.getFmeasure()-altuena.getFmeasure()<0.001){
 					irten=true;

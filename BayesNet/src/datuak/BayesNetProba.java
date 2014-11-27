@@ -22,9 +22,10 @@ public class BayesNetProba {
 	private Evaluation evaluator;
 	private Evaluation ebaluazioEzZintzoa;
 	private Instances instantziak;
+	int klaseMinoritarioa;
 	
 
-	public BayesNetProba(boolean pMarklov, int pParents,Instances train, Instances dev){
+	public BayesNetProba(boolean pMarklov, int pParents,Instances train, Instances dev, int klaseMin){
 		this.instantziak=train;
 		this.bayesNet=new BayesNet();
 		this.searchAlgo=new HillClimber();
@@ -34,11 +35,12 @@ public class BayesNetProba {
 		this.searchAlgo.setMarkovBlanketClassifier(marklov);
 		this.bayesNet.setSearchAlgorithm(searchAlgo);
 		this.bayesNet.setEstimator(new SimpleEstimator());
+		this.klaseMinoritarioa=klaseMin;
 		try {
 			bayesNet.buildClassifier(instantziak);
 			evaluator = new Evaluation(train);
 			evaluator.evaluateModel(bayesNet, dev);
-			fmeasure=evaluator.weightedFMeasure();
+			fmeasure=evaluator.fMeasure(klaseMinoritarioa);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -67,7 +69,7 @@ public class BayesNetProba {
 	}
 	
 	private void imprimatu(Evaluation e){
-		System.out.println("F-Measure: " + e.weightedFMeasure());
+		System.out.println("F-Measure: " + e.fMeasure(klaseMinoritarioa));
 		System.out.println("Parents: "+this.parents);
 		System.out.println("Markov: "+this.marklov);
 		System.out.println("Precission: "+e.weightedPrecision());
