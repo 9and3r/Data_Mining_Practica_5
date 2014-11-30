@@ -9,8 +9,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Random;
 
-import classcounter.Classcounter;
-import weka.classifiers.meta.GridSearch;
+import klasekontatzaile.Classcounter;
 import weka.classifiers.meta.CVParameterSelection;
 import weka.classifiers.rules.OneR;
 import weka.attributeSelection.BestFirst;
@@ -30,7 +29,7 @@ import weka.core.Utils;
 import weka.core.neighboursearch.NearestNeighbourSearch;
 import weka.filters.Filter;
 import weka.filters.supervised.attribute.AttributeSelection;
-import weka.filters.unsupervised.instance.Normalize;
+
 
 public class WekaSVM {
 
@@ -82,6 +81,7 @@ public class WekaSVM {
 
 		// entrenemos el estimador con instancas de entrenamiento
 		LibSVM estimador = new LibSVM();
+		estimador.setShrinking(false);
 		estimador.buildClassifier(data);
 
 		// pasamos las instancias de entrenamiento
@@ -114,7 +114,7 @@ public class WekaSVM {
 			for (int kernela = 0; kernela < 4; kernela++) {
 				estimador.setKernelType(kernelak[kernela]);
 				// SVMType ere ekortuko dugu
-				for (int tipoa = 0; tipoa < 5; tipoa++) {
+				for (int tipoa = 0; tipoa < 2; tipoa++) {
 					estimador.setSVMType(svmtypes[tipoa]);
 					
 					estimador.buildClassifier(data);
@@ -147,6 +147,7 @@ public class WekaSVM {
 					}
 					// TODO
 
+				
 				}
 
 			}
