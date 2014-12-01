@@ -15,9 +15,10 @@ Data_Mining_Practica_5
 ###Argumentos
 * arg[0] = Path cls (clasificador)
 * args[1] = Path fichero test
+* args[2] = Path fichero salida
 
 ###Salidas
-
+* Fichero con las clases
 
 
 
