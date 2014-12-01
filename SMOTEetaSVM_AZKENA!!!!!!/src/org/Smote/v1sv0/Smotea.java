@@ -49,5 +49,5 @@ private int indizea;
 		
 		save.writeBatch();
 		}
-	}
+	
 }

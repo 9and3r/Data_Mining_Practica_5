@@ -6,7 +6,7 @@
 	<classpathentry kind="lib" path="weka.jar"/>
 	<classpathentry kind="lib" path="KlaseKontatzaile.jar"/>
 	<classpathentry kind="lib" path="weka-3.6.0.jar"/>
-	<classpathentry kind="lib" path="classcounter.jar"/>
+	<classpathentry kind="lib" path="D:/Studying Zone/Github repositories/Data_Mining_Practica_5/SMOTEetaSVM_AZKENA!!!!!!/KlaseKontatzaile.jar"/>
 	<classpathentry kind="lib" path="txupateesaSMOTEDEFINITIVEONE.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
