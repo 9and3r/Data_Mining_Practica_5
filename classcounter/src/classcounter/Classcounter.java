@@ -15,8 +15,8 @@ public class Classcounter {
 		int[] kont = new int[instantziak.classAttribute().numValues()];
 		//Por cada instancia incremento el contador de ese valor de clase
 		for(int i = 0;i<instantziak.numInstances();i++)
-			kont[(instantziak.instance(i).stringValue(klasePos))]++;
-		//kont[instantziak.classAttribute().indexOfValue(instantziak.instance(i).stringValue(instantziak.classIndex()))]++;
+			//kont[(instantziak.instance(i).stringValue(klasePos))]++;
+		kont[instantziak.classAttribute().indexOfValue(instantziak.instance(i).stringValue(instantziak.classIndex()))]++;
 		
 		for(int i = 0;i<instantziak.classAttribute().numValues();i++){
 			System.out.println("Number of instances with value '"+instantziak.classAttribute().value(i)+"':");
