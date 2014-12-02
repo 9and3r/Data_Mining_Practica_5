@@ -1,4 +1,7 @@
 package datuak;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+
 import classcounter.*;
 import weka.classifiers.Classifier;
 import weka.classifiers.Evaluation;
@@ -8,9 +11,11 @@ public class ScanParamsAlgorithm {
 
 	public static void main(String[] args) throws Exception {
 		System.out.println(args.length);
-		if(args.length<4){
+		if(args.length<3){
 			System.out.println("Bi path sartu behar dira. Lehenengoan entrenatzeko fitxategia, bigarrena klasifikatu behar den fitxategia, azkena klasearen posizioa. Azkena bada -1 sartu");
 		}else{
+			//CASO 1
+			if(args.length==4){
 			FitxategiKargatzaile f=new FitxategiKargatzaile(args[0], Integer.parseInt(args[1]));
 			FitxategiKargatzaile fdev=new FitxategiKargatzaile(args[2], Integer.parseInt(args[1]));
 			Instances instantziak = f.getInstantziak();
@@ -44,13 +49,15 @@ public class ScanParamsAlgorithm {
 			altuena.erabakiakHartu(f2.getInstantziak()); 
 			altuena.sailkatzaileaGorde(args[3]);
 			
-			
+			/*
 			//Importatu sortutako modeloa eta proba egin (probisionala)
 			Classifier cls = (Classifier) weka.core.SerializationHelper.read(args[3]);
 			Evaluation evaluator = new Evaluation(instantziak);
 			evaluator.evaluateModel(cls, fdev.getInstantziak());
 			System.out.println(evaluator.fMeasure(klaseMinoritarioa));
-		}
+			*/}
+			
+			}
 	}
 	
 	private static BayesNetProba konprobatuAtributuGuztiak(Instances instantziak,boolean pMark, Instances dev, int klaseMin){

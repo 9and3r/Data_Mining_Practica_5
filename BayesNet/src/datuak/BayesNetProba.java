@@ -36,6 +36,7 @@ public class BayesNetProba {
 		this.bayesNet.setSearchAlgorithm(searchAlgo);
 		this.bayesNet.setEstimator(new SimpleEstimator());
 		this.klaseMinoritarioa=klaseMin;
+		
 		try {
 			bayesNet.buildClassifier(instantziak);
 			evaluator = new Evaluation(train);
