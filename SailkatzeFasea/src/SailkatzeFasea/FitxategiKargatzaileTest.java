@@ -2,9 +2,11 @@ package SailkatzeFasea;
 
 
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+
 import weka.core.Instances;
 
 public class FitxategiKargatzaileTest {

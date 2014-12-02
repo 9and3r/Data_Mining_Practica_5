@@ -32,7 +32,13 @@ public static void main(String[] args) throws Exception {
 			//FileWriter fichero = new FileWriter(args[2]);
 			//PrintWriter pw = new PrintWriter(fichero);
 			FitxategiKargatzaileTest fTest=new FitxategiKargatzaileTest(args[1]);
-			FitxategiKargatzaileTest fAcumulado=new FitxategiKargatzaileTest(args[2]);
+			File fitxategi = new File(args[2]);
+			FitxategiKargatzaileTest fAcumulado;
+			if(fitxategi.exists()){
+				fAcumulado=new FitxategiKargatzaileTest(args[2]);}
+			else {
+				fAcumulado=new FitxategiKargatzaileTest(args[1]);
+				}
 			Instances inst = fTest.getInstantziak();
 			Instances instAcum = fAcumulado.getInstantziak();
 			if(args.length==4){
@@ -53,10 +59,10 @@ public static void main(String[] args) throws Exception {
 			while(ite.hasNext())
 				vector.addElement(ite.next());
 			Attribute berria = new Attribute(args[3], vector);
-			inst.insertAttributeAt(berria, inst.numAttributes());
+			instAcum.insertAttributeAt(berria, instAcum.numAttributes());
 			for(int i=0;i<inst.numInstances();i++){
 				balioAux=cls.classifyInstance(inst.instance(i));
-				instAcum.instance(i).setValue(inst.numAttributes()-1, inst.classAttribute().value((int)balioAux));
+				instAcum.instance(i).setValue(instAcum.numAttributes()-1, inst.classAttribute().value((int)balioAux));
 			}
 			ArffSaver saver = new ArffSaver();
 			saver.setInstances(instAcum);
