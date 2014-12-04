@@ -69,7 +69,13 @@ public static void main(String[] args) throws Exception {
 			saver.setFile(new File(args[2]));			
 			saver.writeBatch();
 		}else{
-			System.out.println("Parametroak falta dira");
+			System.out.println("Beharrezko parametroak:");
+			System.out.println("   arg[0] = Path cls (clasificador)");
+			System.out.println("   args[1] = Path fichero test");
+			System.out.println("   args[2] = Path fichero salida"); 
+			System.out.println("   args[3] = nombre nuevo atributo");		
+			System.out.println("   args[4] = klase posizioa");		
+
 		}
 	}
 }
