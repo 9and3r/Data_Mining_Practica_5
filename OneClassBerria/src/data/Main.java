@@ -16,6 +16,9 @@ public class Main {
 			Instances instantziak = dk.getInstantziak();
 			DatuKargatzaile dkdev = new DatuKargatzaile(args[2]);
 			Instances dev = dkdev.getInstantziak();
+			for (int i=0; i<dev.numInstances();i++){
+				instantziak.add(dev.get(i));
+			}
 			OneClassClassifier oneClass = new OneClassClassifier();
 			try {
 				Classcounter counter = new Classcounter();
