@@ -28,6 +28,7 @@ public class Main {
 					classIndex = instantziak.numAttributes()-1;
 				}
 				instantziak.setClassIndex(classIndex);
+				dev.setClassIndex(classIndex);
 				int claseMayoritariaInidice = lortuAltuena(numClass);
 				String claseMayoritaria = instantziak.classAttribute().value(claseMayoritariaInidice);
 				oneClass.setTargetClassLabel(claseMayoritaria);
