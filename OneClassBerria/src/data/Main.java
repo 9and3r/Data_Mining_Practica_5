@@ -23,7 +23,7 @@ public class Main {
 			try {
 				Classcounter counter = new Classcounter();
 				int[] numClass = counter.contarClases(instantziak, Integer.valueOf(args[1]));
-				dk.setKlasearenPosizioa(Integer.valueOf(args[1]));
+				instantziak.setClassIndex(Integer.valueOf(args[1]));
 				int claseMayoritariaInidice = lortuAltuena(numClass);
 				String claseMayoritaria = instantziak.classAttribute().value(claseMayoritariaInidice);
 				oneClass.setTargetClassLabel(claseMayoritaria);
